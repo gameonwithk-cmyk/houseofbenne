@@ -1,0 +1,776 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Of Benne - Authentic Bangalore-Style Benne Dosa in Udaipur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #D35400;
+            --secondary: #FDF6F0;
+            --accent: #3E2723;
+            --neutral: #EFE6DD;
+            --text: #222222;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, rgba(211, 84, 0, 0.85) 0%, rgba(62, 39, 35, 0.8) 100%),
+                        url('https://api.kuse.ai/api/folder/v1/file/1d1d58f7ea6f606cd0187d4f753bf021ca982255de63e48e28459791688cf908_2383125.jpeg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(211, 84, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            font-size: 16px;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(211, 84, 0, 0.1);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(211, 84, 0, 0.15);
+        }
+
+        .feature-card {
+            background: var(--secondary);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(211, 84, 0, 0.15);
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 30px rgba(211, 84, 0, 0.12);
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(211, 84, 0, 0.3);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(62, 39, 35, 0.7) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            padding: 16px 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+        }
+
+        .icon-wrapper {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), #E67E22);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            box-shadow: 0 8px 20px rgba(211, 84, 0, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 36px;
+            }
+
+            .hero-section {
+                min-height: 90vh;
+            }
+
+            .sticky-cta {
+                flex-direction: column;
+            }
+        }
+
+        .menu-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(211, 84, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:hover {
+            padding-left: 10px;
+            color: var(--primary);
+        }
+
+        .contact-info-box {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(211, 84, 0, 0.1);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 24px;
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        footer {
+            background: var(--accent);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        .kuse-branding {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #999;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .kuse-branding:hover {
+            color: var(--primary);
+        }
+
+        .kuse-branding svg {
+            height: 1.2em;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px 0;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .top-nav.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-text:hover {
+            color: var(--primary);
+        }
+
+        .logo-accent {
+            color: var(--primary);
+        }
+
+        .hero-section {
+            padding-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="logo-text">
+                House <span class="logo-accent">Of</span> Benne
+            </a>
+            <div class="flex gap-6 items-center">
+                <a href="#menu" class="hidden md:inline-block text-sm font-semibold text-gray-700 hover:text-orange-600 transition-colors">Menu</a>
+                <a href="#contact" class="hidden md:inline-block text-sm font-semibold text-gray-700 hover:text-orange-600 transition-colors">Contact</a>
+                <a href="tel:09649090077" class="text-sm font-semibold bg-orange-600 text-white px-5 py-2 rounded-full hover:bg-orange-700 transition-all">Call Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="container mx-auto px-6 text-center">
+            <div class="fade-in">
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <span class="trust-badge">⭐ 4.3 Rating</span>
+                    <span class="trust-badge">❤️ Loved by locals</span>
+                    <span class="trust-badge">⚡ Quick service</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    Authentic Bangalore-Style<br>Benne Dosa in Udaipur
+                </h1>
+                <p class="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto font-light">
+                    Crispy, buttery, and unforgettable — paired with the perfect filter coffee.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#menu" class="btn-primary">View Menu</a>
+                    <a href="#contact" class="btn-secondary">Visit Us Today</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-6xl">
+            <div class="fade-in text-center">
+                <h2 class="section-title">Where Tradition Meets Comfort</h2>
+                <p class="section-subtitle">
+                    House Of Benne brings the authentic taste of Bangalore's famous benne dosa to the heart of Udaipur. With a cozy café ambiance, quick service, and a menu crafted for both food lovers and coffee enthusiasts, we create a space where every visit feels warm and satisfying.
+                </p>
+                <div class="inline-block bg-gradient-to-r from-orange-100 to-amber-50 px-8 py-4 rounded-full border-2 border-orange-200">
+                    <p class="text-lg font-semibold text-orange-800">🌟 Visit today for the freshest dosa experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-20 px-6" style="background: var(--secondary);">
+        <div class="container mx-auto max-w-7xl">
+            <div class="fade-in text-center mb-16">
+                <h2 class="section-title">Our Signature Menu</h2>
+                <p class="section-subtitle">Crafted with love, served with warmth</p>
+                <div class="inline-block bg-orange-600 text-white px-6 py-3 rounded-full font-semibold text-lg mb-8">
+                    Starting from ₹49
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="menu-card fade-in">
+                    <div class="text-4xl mb-4">🥞</div>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--accent);">Benne Dosa Specials</h3>
+                    <div class="space-y-2">
+                        <div class="menu-item">Ghee Podi Benne Dosa</div>
+                        <div class="menu-item">Masala Benne Dosa</div>
+                        <div class="menu-item">Butter Garlic Benne Dosa</div>
+                        <div class="menu-item">Paneer Benne Dosa</div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="text-4xl mb-4">🧾</div>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--accent);">Classic Dosas</h3>
+                    <div class="space-y-2">
+                        <div class="menu-item">Plain Paper Dosa</div>
+                        <div class="menu-item">Mysore Masala Dosa</div>
+                        <div class="menu-item">Cheese Dosa</div>
+                        <div class="menu-item">Rava Masala Dosa</div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="text-4xl mb-4">☕</div>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--accent);">Beverages</h3>
+                    <div class="space-y-2">
+                        <div class="menu-item">Classic Filter Coffee</div>
+                        <div class="menu-item">Iced Filter Coffee</div>
+                        <div class="menu-item">Cold Coffee</div>
+                        <div class="menu-item">Hot Chocolate</div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="text-4xl mb-4">🍽</div>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--accent);">Idly &amp; Vada</h3>
+                    <div class="space-y-2">
+                        <div class="menu-item">Steamed Idly</div>
+                        <div class="menu-item">Thatte Idly</div>
+                        <div class="menu-item">Vada Sambhar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center fade-in">
+                <a href="#contact" class="btn-primary">Explore Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-7xl">
+            <div class="fade-in text-center mb-16">
+                <h2 class="section-title">Why Choose Us</h2>
+                <p class="section-subtitle">Experience the perfect blend of authenticity and comfort</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div class="feature-card fade-in">
+                    <div class="icon-wrapper">✅</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--accent);">Authentic Bangalore Taste</h3>
+                    <p class="text-gray-600">Traditional recipes from the heart of Karnataka</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon-wrapper">⚡</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--accent);">Quick &amp; Efficient Service</h3>
+                    <p class="text-gray-600">Fresh food served fast, without compromise</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon-wrapper">💰</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--accent);">Affordable Pricing</h3>
+                    <p class="text-gray-600">Premium taste at prices that make you smile</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon-wrapper">☕</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--accent);">Premium Coffee Experience</h3>
+                    <p class="text-gray-600">Perfectly brewed filter coffee, every time</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon-wrapper">🪑</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--accent);">Cozy &amp; Aesthetic Ambience</h3>
+                    <p class="text-gray-600">A warm space that feels like home</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 fade-in">
+                <a href="#contact" class="btn-primary">Visit Us Today</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6" style="background: var(--neutral);">
+        <div class="container mx-auto max-w-7xl">
+            <div class="fade-in text-center mb-16">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Real experiences from food lovers like you</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="review-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-500 text-xl">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Best dosa in Udaipur! Crispy, buttery, and super tasty."</p>
+                    <p class="font-semibold" style="color: var(--primary);">— Priya S.</p>
+                </div>
+
+                <div class="review-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-500 text-xl">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Filter coffee is a must-try. Reminds me of Bangalore!"</p>
+                    <p class="font-semibold" style="color: var(--primary);">— Rajesh M.</p>
+                </div>
+
+                <div class="review-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-500 text-xl">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Quick service and friendly staff. Love the ambience!"</p>
+                    <p class="font-semibold" style="color: var(--primary);">— Ananya K.</p>
+                </div>
+
+                <div class="review-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-500 text-xl">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Authentic taste at affordable prices. My go-to spot!"</p>
+                    <p class="font-semibold" style="color: var(--primary);">— Vikram P.</p>
+                </div>
+
+                <div class="review-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-500 text-xl">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"The benne dosa here is absolutely divine!"</p>
+                    <p class="font-semibold" style="color: var(--primary);">— Meera R.</p>
+                </div>
+
+                <div class="review-card fade-in" style="background: var(--primary); color: white; border-left-color: var(--accent);">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-300 text-xl">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="mb-4 italic text-white">"Join hundreds of happy customers who've made House Of Benne their favorite spot!"</p>
+                    <p class="font-semibold text-white">— Your Review Next?</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 fade-in">
+                <a href="#contact" class="btn-primary">Visit &amp; Share Your Experience</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-7xl">
+            <div class="fade-in text-center mb-16">
+                <h2 class="section-title">Our Gallery</h2>
+                <p class="section-subtitle">A glimpse into the House Of Benne experience</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="gallery-item fade-in" style="background: url('https://api.kuse.ai/api/folder/v1/file/1d1d58f7ea6f606cd0187d4f753bf021ca982255de63e48e28459791688cf908_2383125.jpeg') center/cover;">
+                    <div class="gallery-overlay">Cozy Interior</div>
+                </div>
+                <div class="gallery-item fade-in" style="background: url('https://api.kuse.ai/api/folder/v1/file/b3014ab4cfff5fa36780cf5b6e0e277001c56da445a7e2b8a0d7c02eb8d16cb1_2383123.jpeg') center/cover;">
+                    <div class="gallery-overlay">Crispy Golden Vada</div>
+                </div>
+                <div class="gallery-item fade-in" style="background: url('https://api.kuse.ai/api/folder/v1/file/a38906ea096d8d40739510a45ba0f2f52f4f42d6bc10807f706fa379bc8cfac6_2383124.jpeg') center/cover;">
+                    <div class="gallery-overlay">Delicious Cold Coffee</div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 fade-in">
+                <p class="text-lg mb-4">Follow us on Instagram for more delicious updates!</p>
+                <a href="https://instagram.com/house_of_benne.udr" target="_blank" class="social-icon">
+                    <span>📷</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-6" style="background: var(--secondary);">
+        <div class="container mx-auto max-w-7xl">
+            <div class="fade-in text-center mb-16">
+                <h2 class="section-title">Visit Us Today</h2>
+                <p class="section-subtitle">We're ready to serve you the best South Indian experience in Udaipur</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="contact-info-box fade-in">
+                    <h3 class="text-2xl font-bold mb-6" style="color: var(--accent);">📍 Location</h3>
+                    <p class="text-lg mb-6 text-gray-700">
+                        Ground floor, Hitawala complex,<br>
+                        Saheli Marg, near Saheliyo ki Badi,<br>
+                        Udaipur, Rajasthan
+                    </p>
+                    <a href="https://maps.google.com/?q=Ground+floor+Hitawala+complex+Saheli+Marg+Udaipur" target="_blank" class="btn-primary">Get Directions</a>
+                </div>
+
+                <div class="contact-info-box fade-in">
+                    <h3 class="text-2xl font-bold mb-6" style="color: var(--accent);">📞 Contact</h3>
+                    <p class="text-2xl font-bold mb-6" style="color: var(--primary);">09649090077</p>
+                    <a href="tel:09649090077" class="btn-primary mb-4 inline-block">Call Now</a>
+                </div>
+            </div>
+
+            <div class="contact-info-box fade-in max-w-5xl mx-auto mt-8">
+                <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--accent);">🕐 Opening Hours</h3>
+                <div class="text-center">
+                    <p class="text-xl font-semibold mb-2" style="color: var(--primary);">Morning: 8:30 AM – 4:00 PM</p>
+                    <p class="text-xl font-semibold" style="color: var(--primary);">Evening: 5:00 PM – 10:00 PM</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 fade-in">
+                <div class="inline-block bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg">
+                    ✨ Walk-ins welcome! Experience authentic Bangalore taste today
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container mx-auto max-w-7xl px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="fade-in">
+                    <h3 class="text-3xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">House Of Benne</h3>
+                    <p class="text-gray-300 mb-4">The South Indian Food You Have in Your Town</p>
+                    <div class="flex gap-4">
+                        <a href="https://instagram.com/house_of_benne.udr" target="_blank" class="social-icon">
+                            <span>📷</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                    </ul>
+                </div>
+
+                <div class="fade-in">
+                    <h4 class="text-xl font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>📞 09649090077</li>
+                        <li>📍 Saheli Marg, Udaipur</li>
+                        <li>📷 @house_of_benne.udr</li>
+                    </ul>
+                </div>
+
+                <div class="fade-in">
+                    <h4 class="text-xl font-semibold mb-4">Hours</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Morning: 8:30 AM – 4:00 PM</li>
+                        <li>Evening: 5:00 PM – 10:00 PM</li>
+                        <li>Open 7 days a week</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400 mb-4">© 2024 House Of Benne. All rights reserved.</p>
+                <a href="https://kuse.ai" target="_blank" class="kuse-branding">
+                    <span>made with</span>
+                    <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"></path><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"></path></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="sticky-cta">
+        <a href="tel:09649090077" class="flex-1 text-center py-3 rounded-full font-semibold" style="background: var(--primary); color: white;">
+            📞 Call Now
+        </a>
+        <a href="https://maps.google.com/?q=Ground+floor+Hitawala+complex+Saheli+Marg+Udaipur" target="_blank" class="flex-1 text-center py-3 rounded-full font-semibold" style="background: var(--accent); color: white;">
+            📍 Get Directions
+        </a>
+    </div>
+
+    <script>
+        const fadeElements = document.querySelectorAll(`.fade-in`);
+        const stickyCtaElement = document.querySelector(`.sticky-cta`);
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: `0px 0px -50px 0px`
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(`visible`);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        const topNav = document.querySelector(`.top-nav`);
+        let lastScrollTop = 0;
+        window.addEventListener(`scroll`, () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Sticky CTA visibility
+            if (scrollTop > 300) {
+                stickyCtaElement.classList.add(`visible`);
+            } else {
+                stickyCtaElement.classList.remove(`visible`);
+            }
+            
+            // Top nav scroll effect
+            if (scrollTop > 50) {
+                topNav.classList.add(`scrolled`);
+            } else {
+                topNav.classList.remove(`scrolled`);
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        document.querySelectorAll(`a[href^="#"]`).forEach(anchor => {
+            anchor.addEventListener(`click`, function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute(`href`));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: `smooth`,
+                        block: `start`
+                    });
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+
+</body></html>
